@@ -7,6 +7,7 @@ myApp.controller('mainController', function($scope, $http) {
     var API_URL = 'http://localhost:3000/tracks';
 
     $scope.peers = 0;
+    $scope.hash = '3f7181a32d5e74c9fbde17c9e2c979c45af9c8d8';
 
 
     var playerElement = document.getElementById('player1');
