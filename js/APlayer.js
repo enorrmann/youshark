@@ -7,7 +7,8 @@
 (function () {
     function APlayer(option) {
 
-        this.isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
+        //this.isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
+        this.isMobile = false;
         // compatibility: some mobile browsers don't suppose autoplay
         if (this.isMobile) {
             option.autoplay = false;
@@ -48,7 +49,7 @@
         this.music = this.playIndex > -1 ? this.option.music[this.playIndex] : this.option.music;
 
         var i;
-        // parser lrc
+        // paroldr lrc
         if (this.option.showlrc) {
             var lrcs = [];
             for (i = 0; i < this.element.getElementsByClassName('aplayer-lrc-content').length; i++) {
@@ -294,9 +295,16 @@ APlayer.prototype.setMusic = function (index) {
         var indexMusic = this.playIndex;
         var music = this.music;
         music = this.playIndex > -1 ? this.option.music[indexMusic] : this.option.music;
+ 
+        
         music.file.getBlobURL(function (err, bUrl) {
             music.url = bUrl;
             _self.setMusicOrig(index);
+
+//          if ( this.option.music[indexMusic+1] !== undefined ) {
+            // index doesn't point to an undefined item.
+  //        }
+
         });
 
 };

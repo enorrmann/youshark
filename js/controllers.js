@@ -7,8 +7,16 @@ myApp.controller('mainController', function($scope, $http) {
     var API_URL = 'http://localhost:3000/tracks';
 
     $scope.peers = 0;
-    $scope.hash = '3f7181a32d5e74c9fbde17c9e2c979c45af9c8d8';
+    //$scope.hash = '23d4937148cb5d229290424cc824832ab20a398d';
 
+
+var opts =
+{
+  announce: [ 'ws://10.4.10.48:8000'],
+   dht:false
+}
+
+//opts = {};
 
     var playerElement = document.getElementById('player1');
     var aPlayer = new APlayer({
@@ -23,11 +31,12 @@ myApp.controller('mainController', function($scope, $http) {
     function getTags(aFile) {
         jsmediatags.read(aFile, {
             onSuccess: function(tag) {
-                client.seed(aFile, function(torrent) {
+                client.seed(aFile,opts, function(torrent) {
                     var data = {
                         "title": tag.tags.title,
                         "hash": torrent.infoHash
                     };
+                    console.log(torrent.infoHash);
                     console.log(data);
                     $http.post(API_URL, data).then(function successCallback(response) {
                         $scope.listTracks();
@@ -48,8 +57,7 @@ myApp.controller('mainController', function($scope, $http) {
     };
 
     $scope.play = function(track) {
-        var torrentId = 'magnet:?xt=urn:btih:' + track.hash;
-        client.add(torrentId, function(torrent) {
+        client.add(track.hash,opts, function(torrent) {
             var file = torrent.files[0];
             console.log(file);
             document.getElementById("audioId").innerHTML = '';
@@ -102,10 +110,9 @@ myApp.controller('mainController', function($scope, $http) {
 
     $scope.loadTorrent = function(hash) {
         console.log('loadTorrent ' + hash);
+            console.log('opts '+opts.announce);
 
-        var torrentId = 'magnet:?xt=urn:btih:' + hash;
-
-        client.add(torrentId, function(torrent) {
+        client.add(hash,opts, function(torrent) {
             console.log('loaded torrent');
     
             $scope.peers = torrent.swarm.wires.length;

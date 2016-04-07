@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+	<script src="js/jsmediatags.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+	<script src="js/controllers.js"></script>
+	<script src="js/APlayer.js"></script>
+	<link rel="stylesheet" href="js/APlayer.min.css">
+</head>
+<!--
+<body ng-controller="mainController" data-ng-init="loadHash()">
+-->
+<body ng-controller="mainController">
+<!--
+<input type="file" id="myFile">
+<input type="button" value="seed" ng-click="seed()">
+
+-->
+<input type="text" ng-model="hash"/>
+<input type="button" value="Load" ng-click="loadHash()">
+
+
+<div id="player1" class="aplayer"></div>
+Peers : {{peers}}<br/>
+paciencia ...
+
+</body>
+</html>

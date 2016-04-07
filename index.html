@@ -1,26 +1,70 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
-<meta charset="UTF-8"> 
-<head>
-	<script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
-	<script src="js/jsmediatags.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-	<script src="js/controllers.js"></script>
-	<script src="js/APlayer.js"></script>
-	<link rel="stylesheet" href="js/APlayer.min.css">
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<title>HTML5 Music Player</title>
+	<link href='assets/css/styles.css' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="assets/css/font-awesome-4.3.0/css/font-awesome.min.css">
+	<link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon" />
+	<script src="assets/js/webtorrent.min.js"></script>
+
 </head>
-<body ng-controller="mainController">
+<body>
+<div class="howTo">
+	Paste hash here <input id="inputHash" type="text" name="hash"><input id="loadBtn" type="button" value="Load" onclick="loadHash()">
+</div>
 
-<!--
-<input type="file" id="myFile"></input>
-<input type="button" value="seed" ng-click="seed()"></input>
--->
+<div id="container" class="disabled">
 
-<input type="text" ng-model="hash"/>
-<input type="button" value="Load" ng-click="loadHash()"></input>
-<input type="button" value="Play!" ng-click="playCurrentTorrent()"></input>
+	<div id="cover-art">
+		<div id="cover-art-big"></div>
+		<img id="cover-art-small" alt="cover-art-small" src="assets/img/default.png">
+	</div>
 
-<div id="player1" class="aplayer"></div>
-Peers : {{peers}}
+	<div id="wave"></div>
+
+	<div id="control-bar">
+
+		<div class="player-control">
+			<div id="previous-button" title="Previous"><i class="fa fa-fast-backward fa-2x"></i></div>
+			<div id="play-button" title="Play"><i class="fa fa-play fa-2x"></i></div>
+			<div id="pause-button" title="Pause"><i class="fa fa-pause fa-2x"></i></div>
+			<div id="stop-button" title="Stop"><i class="fa fa-stop fa-2x"></i></div>
+			<div id="next-button" title="Next"><i class="fa fa-fast-forward fa-2x"></i></div>
+		</div>
+		
+		<div id="playlist">
+
+			<div id="track-details" title="Show playlist">
+				<i class="fa fa-sort"></i>
+				<p id="track-desc">There are no tracks loaded in the player.</p>
+				<p id="track-time">
+					<span id="current">-</span> / <span id="total">-</span>
+				</p>
+			</div>
+
+			<div id="expand-bar" class="hidden">
+
+				<form>
+					<label for="searchBox">Search</label><div><input id="searchBox" type="search" name="search"></div>
+				</form>
+				<ul id="list"></ul>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div id="drop-zone" class="hidden">Drag &amp; Drop Files Here</div>
+
+</div>
+
+
+<script src="assets/js/jquery-1.11.2.min.js"></script>
+<script src="assets/js/id3-minimized.js"></script>
+<script src="assets/js/wavesurfer.min.js"></script>
+<script src="assets/js/script.js"></script>
+
 </body>
 </html>
